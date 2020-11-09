@@ -1,11 +1,21 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 
-const Articles = () => {
-    return (
-        <div>
-            
-        </div>
-    )
-}
+const Articles = ({match}) => {
 
+    const [article, setArticle] = useState({})
+  
+    useEffect(() => {
+      fetch(`/articles/${match.params.articleId}`)
+        .then(response => response.json())
+        .then(article => setArticle(article))
+        .catch(error => alert(error))
+    })
+
+    return(
+        <article> {/* this is just an HTML element 😄*/}
+          <h1>{article.title}</h1>
+          <p>{article.text}</p>
+        </article>
+      )
+    }
 export default Articles
